@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 #define THREADS_PER_BLOCK 16	// Threads per block
-#define SIZE 65					// Array size
+#define SIZE 65			// Array size
 
 __global__ void VectorAdd(int *a, int *b, int *c, int n)
 {
@@ -29,7 +29,7 @@ __global__ void VectorAdd(int *a, int *b, int *c, int n)
 int main()
 {
 	int block_size = SIZE / THREADS_PER_BLOCK;
-	int *a, *b, *c;			// Host arrays
+	int *a, *b, *c;		// Host arrays
 	int *d_a, *d_b, *d_c;	// Device arrays
 
 	// Allocate the memory on the CPU
