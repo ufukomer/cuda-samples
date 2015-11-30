@@ -7,7 +7,7 @@
 #define THREADS_PER_BLOCK 16	// Threads per block
 #define SIZE 65			// Array size
 
-__global__ void VectorAdd(int *a, int *b, int *c, int n)
+__global__ void vectorAdd(int *a, int *b, int *c, int n)
 {
 	// blockIdx.x is block index
 	// threadIdx.x is thread index
@@ -53,7 +53,7 @@ int main()
 	cudaMemcpy(d_b, b, SIZE * sizeof(int), cudaMemcpyHostToDevice);
 
 	// Make a call to GPU kernel
-	VectorAdd <<< block_size, THREADS_PER_BLOCK >>>(d_a, d_b, d_c, SIZE);
+	vectorAdd <<< block_size, THREADS_PER_BLOCK >>>(d_a, d_b, d_c, SIZE);
 
 	// Copy result back to Host array from Device array
 	cudaMemcpy(c, d_c, SIZE * sizeof(int), cudaMemcpyDeviceToHost);
