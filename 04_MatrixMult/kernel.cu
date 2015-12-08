@@ -9,18 +9,22 @@
 #define BLOCK_DIM 16
 
 // Column & Row size
-const int N = 16;
+const int N = 2;
 const int SIZE = N * N;
 
-__global__ void matrixAdd(int *c, const int *a, const int *b, int n)
+__global__ void matrixMult(int *c, int *a, int *b, int n)
 {
-	int row = blockIdx.y * blockDim.y + threadIdx.y;
 	int col = blockIdx.x * blockDim.x + threadIdx.x;
-	int i = row + n * col;
+	int row = blockIdx.y * blockDim.y + threadIdx.y;
+
+	int k, sum = 0;
 
 	if (row < n && col < n)
 	{
-		c[i] = a[i] + b[i];
+		for (k = 0; k < n; k++)
+			sum += a[row * n + k] * b[k * n + col];
+
+		c[row * n + col] = sum;
 	}
 }
 
@@ -47,10 +51,10 @@ int main()
 	cudaMemcpy(dev_a, a, SIZE * sizeof(int), cudaMemcpyHostToDevice);
 	cudaMemcpy(dev_b, b, SIZE * sizeof(int), cudaMemcpyHostToDevice);
 
-	dim3 dimBlock(BLOCK_DIM, BLOCK_DIM);
-	dim3 dimGrid((int)ceil(N / dimBlock.x), (int)ceil(N / dimBlock.y));
+	dim3 dimBlock(1, 1);
+	dim3 dimGrid(N, N);
 
-	matrixAdd <<< dimGrid, dimBlock >>>(dev_c, dev_a, dev_b, N);
+	matrixMult <<< dimGrid, dimBlock >>>(dev_c, dev_a, dev_b, N);
 
 	cudaMemcpy(c, dev_c, SIZE * sizeof(int), cudaMemcpyDeviceToHost);
 
