@@ -26,7 +26,7 @@ __global__ void reduction(float *d_out, float *d_in)
 
 int main()
 {
-    
+    // TODO: Write main function
 
     return 0;
 }

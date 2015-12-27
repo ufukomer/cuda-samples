@@ -40,9 +40,9 @@ int main()
 	cudaMalloc((void **)&d_array, ARRAY_BYTES);
 	cudaMemset((void *)d_array, 0, ARRAY_BYTES);
 
-	// launch the kernel - comment out one of these
+	// Launch the kernel - Comment out one of these
 	timer.Start();
-	// increment_naive<<<NUM_THREADS/BLOCK_WIDTH, BLOCK_WIDTH>>>(d_array);
+	// Increment_naive<<<NUM_THREADS/BLOCK_WIDTH, BLOCK_WIDTH>>>(d_array);
 	increment_naive <<<NUM_THREADS / BLOCK_WIDTH, BLOCK_WIDTH >>>(d_array);
 	timer.Stop();
 

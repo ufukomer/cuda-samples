@@ -36,7 +36,7 @@ int main()
 
 	cudaMemcpy(dev_in, a, ARRAY_SIZE * sizeof(int), cudaMemcpyHostToDevice);
 
-	fill_histrogram <<<ARRAY_SIZE / BLOCK_DIM, BLOCK_DIM >>>(dev_out, dev_in);
+	fill_histrogram <<< ARRAY_SIZE / BLOCK_DIM, BLOCK_DIM >>>(dev_out, dev_in);
 
 	cudaMemcpy(b, dev_out, 100 * sizeof(int), cudaMemcpyDeviceToHost);
 
