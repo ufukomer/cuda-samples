@@ -6,8 +6,6 @@
 #include <math.h>
 #include <time.h> 
 
-#define BLOCK_DIM 16
-
 // Column & Row size
 const int N = 16;
 const int SIZE = N * N;
@@ -47,7 +45,7 @@ int main()
 	cudaMemcpy(dev_a, a, SIZE * sizeof(int), cudaMemcpyHostToDevice);
 	cudaMemcpy(dev_b, b, SIZE * sizeof(int), cudaMemcpyHostToDevice);
 
-	dim3 dimBlock(BLOCK_DIM, BLOCK_DIM);
+	dim3 dimBlock(N, N);
 	dim3 dimGrid((int)ceil(N / dimBlock.x), (int)ceil(N / dimBlock.y));
 
 	matrixAdd <<< dimGrid, dimBlock >>>(dev_c, dev_a, dev_b, N);
