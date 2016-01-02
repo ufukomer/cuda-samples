@@ -403,6 +403,12 @@ Press any key to continue . . .
 ```
 
 #### [08_Reduction](https://github.com/ufukomer/cuda-samples/tree/master/08_Reduction)
+```
+d[0]: 80
+d[1]: 21
+d[2]: 98
+Press any key to continue . . .
+```
 
 #### [09_HistogramCalculate](https://github.com/ufukomer/cuda-samples/tree/master/09_HistogramCalculate)
 ```
