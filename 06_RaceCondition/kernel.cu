@@ -22,6 +22,7 @@ __global__ void increment_naive(int *g)
 {
 	int i = blockIdx.x * blockDim.x + threadIdx.x;
 
+	// Each thread to increment consecutive elements, wrapping at ARRAY_SIZE
 	i = i % ARRAY_SIZE;
 	g[i] = g[i] + 1;
 }
@@ -43,7 +44,7 @@ int main()
 	// Launch the kernel - Comment out one of these
 	timer.Start();
 	// Increment_naive<<<NUM_THREADS/BLOCK_WIDTH, BLOCK_WIDTH>>>(d_array);
-	increment_naive <<<NUM_THREADS / BLOCK_WIDTH, BLOCK_WIDTH >>>(d_array);
+	increment_naive <<< NUM_THREADS / BLOCK_WIDTH, BLOCK_WIDTH >>>(d_array);
 	timer.Stop();
 
 	// Wait for the kernal execution

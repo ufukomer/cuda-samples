@@ -1,9 +1,21 @@
+﻿#pragma once
+#ifdef __INTELLISENSE__
+void __syncthreads();
+#endif
+
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
 
 #include <stdio.h>
+#include <cuda.h>
+#include <stdio.h>
+#include <time.h>
+#include <ctime>
 
-__global__ void reduction(float *d_out, float *d_in)
+#define BLOCK_DIM 4
+#define ARRAY_SIZE 12
+
+__global__ void reduction(int *d_in, int *d_out)
 {
 	unsigned int i = blockIdx.x * blockDim.x + threadIdx.x;
 	unsigned int tid = threadIdx.x;
@@ -17,7 +29,7 @@ __global__ void reduction(float *d_out, float *d_in)
 		}
 		__syncthreads(); // Make sure all adds at one stage are done!
 	}
-	
+
 	if (tid == 0)
 	{
 		d_out[blockIdx.x] = d_in[i];
@@ -26,7 +38,33 @@ __global__ void reduction(float *d_out, float *d_in)
 
 int main()
 {
-    // TODO: Write main function
+	const int N = ARRAY_SIZE;
+	srand(time(NULL));
 
-    return 0;
+	int d[ARRAY_SIZE + BLOCK_DIM], a[12] = { 1, 3, 21, 55, 2, 5, 6, 8, 87, 6, 5, 0 };
+
+	int *dev_a, *dev_d;
+
+	cudaMalloc((void **)&dev_a, N * sizeof(int));
+	cudaMalloc((void **)&dev_d, BLOCK_DIM * sizeof(int));
+
+	cudaMemcpy(dev_a, a, N*sizeof(int), cudaMemcpyHostToDevice);
+
+	reduction <<< (ARRAY_SIZE + BLOCK_DIM - 1) / BLOCK_DIM, BLOCK_DIM >>>(dev_a, dev_d);
+
+	cudaDeviceSynchronize();
+
+	cudaMemcpy(d, dev_d, ARRAY_SIZE / BLOCK_DIM * sizeof(int), cudaMemcpyDeviceToHost);
+
+	for (int i = 0; i < ARRAY_SIZE / BLOCK_DIM; ++i)
+		printf("d[%d]: %d\n", i, d[i]);
+
+	cudaFree(dev_a);
+	cudaFree(dev_d);
+
+	printf("");
+
+	return 0;
+
+	return 0;
 }
