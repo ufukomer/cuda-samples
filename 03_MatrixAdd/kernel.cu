@@ -6,17 +6,20 @@
 #include <math.h>
 #include <time.h> 
 
-// Column & Row size
-const int N = 16;
-const int SIZE = N * N;
+// Row size
+const int N = 3;
+// Column Size
+const int M = 4;
+const int SIZE = M * N;
 
-__global__ void matrixAdd(int *c, const int *a, const int *b, int n)
+__global__ void matrixAdd(int *c, const int *a, const int *b, int cols, int rows)
 {
 	int row = blockIdx.y * blockDim.y + threadIdx.y;
 	int col = blockIdx.x * blockDim.x + threadIdx.x;
-	int i = row + n * col;
+	// 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+	int i = row * cols + col;
 
-	if (row < n && col < n)
+	if (row < rows && col < cols)
 	{
 		c[i] = a[i] + b[i];
 	}
@@ -26,7 +29,7 @@ int main()
 {
 	srand(time(NULL));
 
-	int a[N][N], b[N][N], *c;
+	int a[N][M], b[N][M], *c;
 	int *dev_a, *dev_b, *dev_c;
 
 	c = (int *)malloc(SIZE * sizeof(int));
@@ -36,7 +39,7 @@ int main()
 	cudaMalloc((void **)&dev_c, SIZE * sizeof(int));
 
 	for (int row = 0; row < N; ++row)
-		for (int col = 0; col < N; ++col)
+		for (int col = 0; col < M; ++col)
 		{
 			a[row][col] = rand() % 10;
 			b[row][col] = rand() % 10;
@@ -45,10 +48,10 @@ int main()
 	cudaMemcpy(dev_a, a, SIZE * sizeof(int), cudaMemcpyHostToDevice);
 	cudaMemcpy(dev_b, b, SIZE * sizeof(int), cudaMemcpyHostToDevice);
 
-	dim3 dimBlock(N, N);
-	dim3 dimGrid((int)ceil(N / dimBlock.x), (int)ceil(N / dimBlock.y));
+	dim3 dimBlock(M, N);
+	dim3 dimGrid((int)ceil(M / dimBlock.x), (int)ceil(N / dimBlock.y));
 
-	matrixAdd <<< dimGrid, dimBlock >>>(dev_c, dev_a, dev_b, N);
+	matrixAdd <<< dimGrid, dimBlock >>>(dev_c, dev_a, dev_b, M, N);
 
 	cudaMemcpy(c, dev_c, SIZE * sizeof(int), cudaMemcpyDeviceToHost);
 
