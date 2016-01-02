@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "08_Reduction", "08_Reductio
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "09_HistogramCalculate", "09_HistogramCalculate\09_HistogramCalculate.vcxproj", "{36EA0AED-0AAC-48D9-BEE3-0B25A7FE1BD7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10_MaxValue", "10_MaxValue\10_MaxValue.vcxproj", "{E5F0E2D7-7F49-4634-AE31-93B35DA6F1CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -101,6 +103,14 @@ Global
 		{36EA0AED-0AAC-48D9-BEE3-0B25A7FE1BD7}.Release|Win32.Build.0 = Release|Win32
 		{36EA0AED-0AAC-48D9-BEE3-0B25A7FE1BD7}.Release|x64.ActiveCfg = Release|x64
 		{36EA0AED-0AAC-48D9-BEE3-0B25A7FE1BD7}.Release|x64.Build.0 = Release|x64
+		{E5F0E2D7-7F49-4634-AE31-93B35DA6F1CB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E5F0E2D7-7F49-4634-AE31-93B35DA6F1CB}.Debug|Win32.Build.0 = Debug|Win32
+		{E5F0E2D7-7F49-4634-AE31-93B35DA6F1CB}.Debug|x64.ActiveCfg = Debug|x64
+		{E5F0E2D7-7F49-4634-AE31-93B35DA6F1CB}.Debug|x64.Build.0 = Debug|x64
+		{E5F0E2D7-7F49-4634-AE31-93B35DA6F1CB}.Release|Win32.ActiveCfg = Release|Win32
+		{E5F0E2D7-7F49-4634-AE31-93B35DA6F1CB}.Release|Win32.Build.0 = Release|Win32
+		{E5F0E2D7-7F49-4634-AE31-93B35DA6F1CB}.Release|x64.ActiveCfg = Release|x64
+		{E5F0E2D7-7F49-4634-AE31-93B35DA6F1CB}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
