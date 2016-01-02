@@ -515,6 +515,14 @@ Out[99]: 10
 Press any key to continue . . .
 ```
 
+#### [10_MaxValue](https://github.com/ufukomer/cuda-samples/tree/master/10_MaxValue)
+```
+Max: 55
+Max: 8
+Max: 87
+Press any key to continue . . .
+```
+
 #### Technical Specifications
 
 ![tech-specifications](http://blog.cuvilib.com/wp-content/uploads/2010/06/fermi_vs_old.png)
