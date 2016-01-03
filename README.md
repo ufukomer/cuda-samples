@@ -106,10 +106,10 @@ Press any key to continue . . .
 
 #### [04_MatrixMult](https://github.com/ufukomer/cuda-samples/tree/master/04_MatrixMult)
 ```
-c[0] =  53
-c[1] =  66
-c[2] =  32
-c[3] =  32
+c[0] =  5
+c[1] =  4
+c[2] =  4
+c[3] =  5
 Press any key to continue . . .
 ```
 
