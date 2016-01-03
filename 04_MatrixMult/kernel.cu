@@ -1,9 +1,3 @@
-#pragma once
-#ifdef __INTELLISENSE__
-void __syncthreads();
-#endif
-
-
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
 
@@ -27,9 +21,9 @@ __global__ void matrixMult(int *c, int *a, int *b, int n)
 
 	if (row < n && col < n)
 	{
-		for (int i = 0; i < n; ++i) 
+		for (int i = 0; i < n; ++i)
 			sum += a[row * n + i] * b[i * n + col];
-			
+
 		c[row * n + col] = sum;
 	}
 }
@@ -53,13 +47,6 @@ int main()
 	cudaMalloc((void **)&dev_b, SIZE * sizeof(int));
 	cudaMalloc((void **)&dev_c, SIZE * sizeof(int));
 
-	/*for (int row = 0; row < N; ++row)
-		for (int col = 0; col < N; ++col)
-		{
-			a[row][col] = rand() % 10;
-			b[row][col] = rand() % 10;
-		}
-		*/
 	cudaMemcpy(dev_a, a, SIZE * sizeof(int), cudaMemcpyHostToDevice);
 	cudaMemcpy(dev_b, b, SIZE * sizeof(int), cudaMemcpyHostToDevice);
 
