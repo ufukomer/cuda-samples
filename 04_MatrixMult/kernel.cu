@@ -33,10 +33,10 @@ int main()
 	srand(time(NULL));
 
 	int a[N][N] = { { 1, 2 },
-					{ 2, 1 } };
+			{ 2, 1 } };
 
-	int	b[N][N] = { { 1, 2 },
-					{ 2, 1 } };
+	int b[N][N] = { { 1, 2 },
+			{ 2, 1 } };
 
 	int *c;
 	int *dev_a, *dev_b, *dev_c;
